@@ -16,10 +16,11 @@ from dash import Dash, html, dcc
 from dash.dependencies import Input, Output# Load Data
 import pickle
 
-file95 = open (".\\data\\fig95.pkl", "rb")
-file05 = open (".\\data\\fig05.pkl", "rb")
-file15 = open (".\\data\\fig15.pkl", "rb")
-file_d = open (".\\data\\deltafig.pkl", "rb")
+file95 = open ("data/fig95.pkl", "rb")
+file05 = open ("data/fig05.pkl", "rb")
+file15 = open ("data/fig15.pkl", "rb")
+file_d = open ("data/deltafig.pkl", "rb")
+
 fig95 = pickle.load(file95)
 fig05 = pickle.load(file05)
 fig15 = pickle.load(file15)
@@ -27,6 +28,7 @@ deltafig = pickle.load(file_d)
 figmap = {1995:go.Figure(fig95),2005:go.Figure(fig05),2015:go.Figure(fig15),2025:go.Figure(deltafig)}
 
 app = Dash(__name__)
+server = app.server
 
 app.layout = html.Div([
     html.Div([     
@@ -59,4 +61,4 @@ def update_figure(year):
     return figmap[year]
     
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()
