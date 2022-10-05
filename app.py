@@ -29,7 +29,7 @@ figmap = {1995:go.Figure(fig95),2005:go.Figure(fig05),2015:go.Figure(fig15),2025
 
 app = Dash(__name__)
 server = app.server
-
+app.title = 'NYC Tree Change'
 app.layout = html.Div([
     html.Div([     
     dcc.Loading(id="ls-loading-1", parent_className='loading-wrapper', children=[
