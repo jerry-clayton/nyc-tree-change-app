@@ -1,6 +1,6 @@
 #sliderDiv {
   background-color: rgba(255,255,255,.5);
-  padding-left: 3vw;
+  width: 4em;
   /*height:  2vh;*/
 }
 .rc-slider-mark span{
