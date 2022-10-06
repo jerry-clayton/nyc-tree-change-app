@@ -15,6 +15,7 @@ import pyproj
 from dash import Dash, html, dcc
 from dash.dependencies import Input, Output# Load Data
 import pickle
+from flask_caching import Cache
 
 file95 = open ("data/fig95.pkl", "rb")
 file05 = open ("data/fig05.pkl", "rb")
@@ -29,6 +30,12 @@ figmap = {1995:go.Figure(fig95),2005:go.Figure(fig05),2015:go.Figure(fig15),2025
 
 app = Dash(__name__)
 server = app.server
+cache = Cache(server, config={
+    # try 'filesystem' if you don't want to setup redis
+    'CACHE_TYPE': 'filesystem',
+    'CACHE_DIR': 'cache'
+})
+
 app.title = 'NYC Tree Change'
 app.layout = html.Div([
     html.Div([     
@@ -53,10 +60,12 @@ app.layout = html.Div([
     type="circle")],id="load-wrap")])
 
 # Define callback to update graph
+TIMEOUT = 120
 @app.callback(
     Output('graph', 'figure'),
     [Input("year", "value")]
 )
+@cache.memoize(timeout=TIMEOUT)
 def update_figure(year):
     return figmap[year]
     

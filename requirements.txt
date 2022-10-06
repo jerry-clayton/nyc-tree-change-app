@@ -1,5 +1,6 @@
 censusgeocode==0.5.2
 dash==2.6.2
+Flask_Caching==1.10.1
 geopandas==0.9.0
 matplotlib==3.5.2
 numpy==1.23.1
@@ -8,4 +9,3 @@ plotly==5.9.0
 pyproj==3.4.0
 scikit_learn==1.1.2
 Shapely==1.8.4
-gunicorn==20.1.0
