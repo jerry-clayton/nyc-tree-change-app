@@ -39,7 +39,7 @@ app.layout = html.Div([
                  value=1995 ,marks = {1995: "1995", 2005:'2005', 2015:'2015', 2025:'Δ'} ,id='year')],
                 style= { 
                 "position": "absolute",
-                "top": "50vh",
+                "top": "60vh",
                 "left": "1.33vw",
                 "z-index":"1",
                 "font-family":"sans-serif",
