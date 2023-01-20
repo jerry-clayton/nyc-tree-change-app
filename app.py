@@ -16,7 +16,9 @@ from dash import Dash, html, dcc
 from dash.dependencies import Input, Output# Load Data
 import pickle
 from flask_caching import Cache
+import orjson
 
+#open figures that were created previously, and store them in a dictionary with keys corresponding to slider input values
 file95 = open ("data/fig95.pkl", "rb")
 file05 = open ("data/fig05.pkl", "rb")
 file15 = open ("data/fig15.pkl", "rb")
@@ -30,12 +32,17 @@ figmap = {1995:go.Figure(fig95),2005:go.Figure(fig05),2015:go.Figure(fig15),2025
 
 app = Dash(__name__)
 server = app.server
+#set up flask caching so that figures (which are upwards of 10mb each) don't have to be re-sent to clients after initial viewing 
+#OR
+#to improve serverside response time
+
 cache = Cache(server, config={
     # try 'filesystem' if you don't want to setup redis
     'CACHE_TYPE': 'filesystem',
     'CACHE_DIR': 'cache'
 })
 
+#build dash app which displays full-page versions of the figures
 app.title = 'NYC Tree Change'
 app.layout = html.Div([
     html.Div([     
@@ -51,7 +58,6 @@ app.layout = html.Div([
                 "z-index":"1",
                 "font-family":"sans-serif",
                 "font-size":"1em"
-                #"background-color": "rgba(255,255,255,.5)"
                 },id="sliderDiv"),
             dcc.Graph(id='graph', figure = fig95, responsive=True,style = {"height":"100vh", "width":"100vw"})
 
